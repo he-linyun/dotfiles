@@ -1,0 +1,9 @@
+# navigations
+alias ..="cd .."
+alias ...="cd ../.."
+alias dl="cd ~/Downloads"
+alias p="cd ~/Vault/projects"
+
+alias lg='lazygit'
+
+alias nosleep='caffeinate -d'

@@ -1,0 +1,13 @@
+[user]
+	name = Linyun He
+	email = 20322006+he-linyun@users.noreply.github.com
+
+[init]
+    defaultBranch = main
+
+[filter "lfs"]
+	clean = git-lfs clean -- %f
+	smudge = git-lfs smudge -- %f
+	process = git-lfs filter-process
+	required = true
+

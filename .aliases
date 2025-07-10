@@ -2,8 +2,12 @@
 alias ..="cd .."
 alias ...="cd ../.."
 alias dl="cd ~/Downloads"
+alias dot="cd ~/.dotfiles"
 alias p="cd ~/Vault/projects"
 
+alias nosleep='caffeinate -d'
+alias reload='source ~/.zshrc'
+
+# app specific
 alias lg='lazygit'
 
-alias nosleep='caffeinate -d'

@@ -3,12 +3,10 @@ start-at-login = true
 
 # run after login to macOS user session.
 # 'start-at-login' needs to be 'true' for 'after-login-command' to work
-# Available commands: https://nikitabobko.github.io/AeroSpace/commands
 after-login-command = []
 
 # run after AeroSpace startup.
-# 'after-startup-command' is run after 'after-login-command'
-# Available commands : https://nikitabobko.github.io/AeroSpace/commands
+# 'after-startup-command' runs after 'after-login-command'
 after-startup-command = []
 
 # Normalizations. See: https://nikitabobko.github.io/AeroSpace/guide#normalization
@@ -79,11 +77,11 @@ automatically-unhide-macos-hidden-apps = false
 
     # All possible modifiers: cmd, alt, ctrl, shift
 
-    # All possible commands: https://nikitabobko.github.io/AeroSpace/commands
-
     # See: https://nikitabobko.github.io/AeroSpace/commands#layout
     alt-slash = 'layout tiles horizontal vertical'
     alt-comma = 'layout accordion horizontal vertical'
+
+    alt-backtick = 'exec-and-forget ~/scripts/show-workspaces.sh'
 
     # See: https://nikitabobko.github.io/AeroSpace/commands#focus
     alt-h = 'focus left'
@@ -155,8 +153,8 @@ automatically-unhide-macos-hidden-apps = false
     alt-f = 'workspace F'
     alt-shift-f = 'move-node-to-workspace F'
 
-    alt-g = 'workspace G'
-    alt-shift-g = 'move-node-to-workspace G'
+    alt-g = 'workspace Git'
+    alt-shift-g = 'move-node-to-workspace Git'
 
     alt-i = 'workspace I'
     alt-shift-i = 'move-node-to-workspace I'
@@ -228,6 +226,23 @@ automatically-unhide-macos-hidden-apps = false
     r = ['flatten-workspace-tree', 'mode main'] # reset layout
     f = ['layout floating tiling', 'mode main'] # Toggle between floating and tiling layout
     backspace = ['close-all-windows-but-current', 'mode main']
+    w = [
+        'exec-and-forget open -g -a Calendar',
+        'exec-and-forget open -g -a Reminders',
+        'exec-and-forget open -g -a "Microsoft Outlook"',
+        'exec-and-forget open -g -a Obsidian',
+        'exec-and-forget open -g -a "Visual Studio Code"',
+        'exec-and-forget open -g -a Zotero',
+        'mode main'        
+    ]
+    q = [
+        'exec-and-forget killall Calendar',
+        'exec-and-forget killall Reminders',
+        'exec-and-forget killall "Microsoft Outlook"',
+        'exec-and-forget killall Obsidian',#'exec-and-forget osascript -e \\'quit app "Visual Studio Code"\\'',
+        'exec-and-forget killall zotero',
+        'mode main'
+    ]
 
     # sticky is not yet supported https://github.com/nikitabobko/AeroSpace/issues/2
     #s = ['layout sticky tiling', 'mode main']
@@ -242,18 +257,29 @@ automatically-unhide-macos-hidden-apps = false
     shift-down = ['volume set 0', 'mode main']
 
 
-# specific apps 
+# Apple default apps 
+[[on-window-detected]]
+if.app-id = 'com.apple.ActivityMonitor'
+run = 'layout floating'
 
 [[on-window-detected]]
 if.app-id = 'com.apple.iCal'
 run = 'move-node-to-workspace Calendar'
 
 [[on-window-detected]]
-if.app-id = 'com.apple.reminders'
-run = 'move-node-to-workspace Calendar'
+if.app-id = 'com.apple.calculator'
+run = 'layout floating'
+
+# [[on-window-detected]]  # not necessary as this is by default
+# if.app-id = 'com.apple.FaceTime'
+# run = 'layout floating'
 
 [[on-window-detected]]
 if.app-id = 'com.apple.finder'
+run = 'layout floating'
+
+[[on-window-detected]]
+if.app-id = 'com.apple.findmy'
 run = 'layout floating'
 
 [[on-window-detected]]
@@ -261,20 +287,29 @@ if.app-id = 'com.apple.MobileSMS'
 run = 'layout floating'
 
 [[on-window-detected]]
+if.app-id = 'com.apple.reminders'
+run = 'move-node-to-workspace Calendar'
+
+# [[on-window-detected]] # not necessary as this is by default
+# if.app-id = 'com.apple.ScreenContinuity' 
+# run = 'layout floating'
+
+[[on-window-detected]]
+if.app-id = 'com.github.GitHubClient'
+run = 'move-node-to-workspace Git'
+
+[[on-window-detected]]
+if.app-id = 'com.apple.systempreferences'
+run = 'layout floating'
+
+# third-party apps
+[[on-window-detected]]
 if.app-id = 'md.obsidian'
 run = 'move-node-to-workspace Obsidian'
 
 [[on-window-detected]]
 if.app-id = 'com.microsoft.Outlook'
 run = 'move-node-to-workspace Email'
-
-[[on-window-detected]]
-if.app-id = 'com.apple.ScreenContinuity'
-run = 'layout floating'
-
-[[on-window-detected]]
-if.app-id = 'com.apple.systempreferences'
-run = 'layout floating'
 
 [[on-window-detected]]
 if.app-id = 'com.microsoft.VSCode'

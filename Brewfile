@@ -7,10 +7,13 @@ brew "fastfetch"
 brew "git"
 brew "lazygit"
 brew "syncthing"
+brew "zsh-autosuggestions"
+brew "zsh-syntax-highlighting"
 
 # ── Casks ──
 cask "aerospace"
 cask "discord"
+cask "ghostty"
 cask "github"
 cask "google-chrome"
 cask "mactex"

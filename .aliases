@@ -5,6 +5,8 @@ alias dl="cd ~/Downloads"
 alias dot="cd ~/.dotfiles"
 alias p="cd ~/Vault/projects"
 
+alias ff='fastfetch'
+alias la="ls -lAh"
 alias nosleep='caffeinate -d'
 alias reload='source ~/.zshrc'
 

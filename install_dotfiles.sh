@@ -1,5 +1,11 @@
 #!/usr/bin/env bash
 
+# Ensure the script is being run with Bash, not Zsh or another shell
+if [ -z "$BASH_VERSION" ]; then
+  echo "Error: This script must be run with Bash."
+  exit 1
+fi
+
 set -e
 
 DOTFILES_DIR="$HOME/.dotfiles"
@@ -8,9 +14,9 @@ FILES_TO_SYMLINK=(
   ".aerospace.toml" "$HOME/.aerospace.toml"
   ".gitconfig" "$HOME/.gitconfig"
   ".ghostty" "$HOME/Library/Application Support/com.mitchellh.ghostty/config"
+  "nvim" "$HOME/.config/nvim"
   ".zshrc" "$HOME/.zshrc"
 )
-#"nvim/init.vim $HOME/.config/nvim/init.vim"
 
 echo ""
 echo "Installing dotfiles..."

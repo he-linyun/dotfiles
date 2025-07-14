@@ -81,7 +81,7 @@ automatically-unhide-macos-hidden-apps = false
     alt-slash = 'layout tiles horizontal vertical'
     alt-comma = 'layout accordion horizontal vertical'
 
-    alt-backtick = 'exec-and-forget ~/scripts/show-workspaces.sh'
+    # alt-backtick = 'exec-and-forget ~/show-open-apps.sh'
 
     # See: https://nikitabobko.github.io/AeroSpace/commands#focus
     alt-h = 'focus left'
@@ -126,14 +126,14 @@ automatically-unhide-macos-hidden-apps = false
     alt-6 = 'workspace 6'
     alt-shift-6 = 'move-node-to-workspace 6'
 
-    alt-7 = 'workspace 7'
-    alt-shift-7 = 'move-node-to-workspace 7'
+    #alt-7 = 'workspace 7'
+    #alt-shift-7 = 'move-node-to-workspace 7'
 
-    alt-8 = 'workspace 8'
-    alt-shift-8 = 'move-node-to-workspace 8'
+    #alt-8 = 'workspace 8'
+    #alt-shift-8 = 'move-node-to-workspace 8'
 
-    alt-9 = 'workspace 9'
-    alt-shift-9 = 'move-node-to-workspace 9'
+    #alt-9 = 'workspace 9'
+    #alt-shift-9 = 'move-node-to-workspace 9'
 
     alt-a = 'workspace A'
     alt-shift-a = 'move-node-to-workspace A'
@@ -147,8 +147,8 @@ automatically-unhide-macos-hidden-apps = false
     alt-d = 'workspace D'
     alt-shift-d = 'move-node-to-workspace D'
 
-    alt-e = 'workspace Email'
-    alt-shift-e = 'move-node-to-workspace Email'
+    alt-e = 'workspace E'
+    alt-shift-e = 'move-node-to-workspace E'
 
     alt-f = 'workspace F'
     alt-shift-f = 'move-node-to-workspace F'
@@ -159,11 +159,11 @@ automatically-unhide-macos-hidden-apps = false
     alt-i = 'workspace I'
     alt-shift-i = 'move-node-to-workspace I'
 
-    alt-m = 'workspace M'
-    alt-shift-m = 'move-node-to-workspace M'
+    #alt-m = 'workspace M'
+    #alt-shift-m = 'move-node-to-workspace M'
 
-    alt-n = 'workspace N'
-    alt-shift-n = 'move-node-to-workspace N'
+    #alt-n = 'workspace N'
+    #alt-shift-n = 'move-node-to-workspace N'
 
     alt-o = 'workspace Obsidian'
     alt-shift-o = 'move-node-to-workspace Obsidian'
@@ -180,8 +180,8 @@ automatically-unhide-macos-hidden-apps = false
     alt-s = 'workspace S'
     alt-shift-s = 'move-node-to-workspace S'
 
-    alt-t = 'workspace Temporary'
-    alt-shift-t = 'move-node-to-workspace Temporary'
+    alt-t = 'workspace T'
+    alt-shift-t = 'move-node-to-workspace T'
 
     alt-u = 'workspace U'
     alt-shift-u = 'move-node-to-workspace U'
@@ -309,7 +309,7 @@ run = 'move-node-to-workspace Obsidian'
 
 [[on-window-detected]]
 if.app-id = 'com.microsoft.Outlook'
-run = 'move-node-to-workspace Email'
+run = 'move-node-to-workspace X'
 
 [[on-window-detected]]
 if.app-id = 'com.microsoft.VSCode'
@@ -318,3 +318,17 @@ run = 'move-node-to-workspace VS_Code'
 [[on-window-detected]]
 if.app-id = 'org.zotero.zotero'
 run = 'move-node-to-workspace Zotero'
+
+[workspace-to-monitor-force-assignment]
+1 = ['^DELL S.*$','secondary']
+2 = ['^DELL S.*$','secondary']
+3 = ['^DELL S.*$','secondary']
+4 = ['^DELL S.*$','secondary']
+5 = ['^DELL S.*$','secondary']
+6 = ['^DELL S.*$','secondary']
+Q = '^Built-in.*$'
+W = '^Built-in.*$'
+E = '^Built-in.*$'
+R = '^Built-in.*$'
+T = '^Built-in.*$'
+Y = '^Built-in.*$'

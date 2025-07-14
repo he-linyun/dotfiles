@@ -24,5 +24,5 @@ bindkey '\e[Z' expand-or-complete # Show completion menu with Shift+Tab
 
 # special keybindings, only work for ghostty
 # other terminal emulators may not recognize these keybindings
-bindkey '\e[3;2~' delete-char # Map shift+delete to forward delete
+# bindkey '\e[3;2~' delete-char # Map shift+delete to forward delete
 #bindkey '\e[3;9~' delete-char # Map cmd+backspace to forward delete

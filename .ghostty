@@ -32,8 +32,8 @@ keybind = cmd+shift+z=toggle_split_zoom
 # default reload config
 keybind = cmd+shift+,=reload_config
 
-# to define forward delete
-keybind = shift+backspace=csi:3;2~
+# to define forward delete; now handled by karabiner
+#keybind = shift+backspace=csi:3;2~
 #keybind = cmd+backspace=csi:3;9~
 
 

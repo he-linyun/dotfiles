@@ -1,6 +1,6 @@
 # ── Taps ──
-tap "homebrew/core"
-tap "homebrew/cask"
+tap "nikitabobko/tap"      # for aerospace
+tap "FelixKratz/formulae"  # for sketchybar
 
 # ── Formulae ──
 brew "asitop"
@@ -38,10 +38,20 @@ cask "microsoft-teams"
 cask "microsoft-word"
 cask "moonlight"
 cask "obsidian"
-# cask "stats"
+cask "sketchybar"
+cask "stats"
 cask "texstudio"
 cask "visual-studio-code"
 cask "vlc"
 cask "zoom"
 cask "zotero"
 
+# ── Fonts and Symbols ──
+cask "font-hack-nerd-font"
+cask "font-sf-pro"
+cask "sf-symbols"
+cask "font-sketchybar-app-font"
+
+# ── Mac App Store Apps ──
+#mas "iWallpaper - Live Wallpaper", id: 1552826194
+mas "pap.er 优雅壁纸", id:1639052102

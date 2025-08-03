@@ -2,105 +2,57 @@
 
 # Useful links
 # project home:       https://github.com/FelixKratz/SketchyBar
-# config reference: https://felixkratz.github.io/SketchyBar/config
+# config reference:   https://felixkratz.github.io/SketchyBar/config
 
 ITEM_DIR="$CONFIG_DIR/items"
 PLUGIN_DIR="$CONFIG_DIR/plugins"
 
 source "$CONFIG_DIR/colors.sh"
 
-##### Bar Appearance #####
-# Configuring the general appearance of the bar, see:
-# https://felixkratz.github.io/SketchyBar/config/bar
+########################################################
+## different layouts for single and multiple monitors ##
+########################################################
+MONITOR_COUNT=$(system_profiler SPDisplaysDataType | grep -c "Resolution")
 
-sketchybar --bar    height=37                     \
-                    position=top                  \
-                    color=$TRANSPARENT            \
-                    display=all
+#### SketchyBar Configuration ####
+source "$CONFIG_DIR/defaults.sh"
 
-##### Changing Defaults #####
-# We now change some default values, which are applied to all further items.
-# For a full list of all available item properties see:
-# https://felixkratz.github.io/SketchyBar/config/items
+#### SketchyBar Initialization ####
+source "$CONFIG_DIR/bar.sh"
 
-default=(
-  padding_left=-10
-  padding_right=-10
-  icon.font="Hack Nerd Font:Bold:17.0"
-  label.font="HSF Pro:Semibold:17.0"
-  icon.color=$WHITE
-  label.color=$WHITE
-  icon.padding_left=2
-  icon.padding_right=1
-  label.padding_left=1
-  label.padding_right=4
-)
-sketchybar --default "${default[@]}"
+##### Mission Control Space Indicators #####
+# aerospace related events
+sketchybar --add event aerospace_workspace_change
+sketchybar --add event aerospace_monitor_change
+sketchybar --add event aerospace_move_node
+sketchybar --add event aerospace_mode_change
 
-##### Adding Mission Control Space Indicators #####
-# Let's add some mission control spaces:
-# https://felixkratz.github.io/SketchyBar/config/components#space----associate-mission-control-spaces-with-an-item
-# to indicate active and available mission control spaces.
-
-
-##### Adding Items to the bar #####
-# https://felixkratz.github.io/SketchyBar/config/items#adding-items-to-sketchybar
-# positions: left, right, center, q, e (https://github.com/FelixKratz/SketchyBar/issues/120)
-
-# different layouts for single and multiple monitors
-monitor_count=$(system_profiler SPDisplaysDataType | grep -c "Resolution")
+##### Left Items #####
+source "$ITEM_DIR/header.sh"
 
 # single monitor
-if (( monitor_count == 1 )); then
+if (( MONITOR_COUNT == 1 )); then
   source "$ITEM_DIR/spaces_single.sh"  
 fi
 
 # multiple monitors
-if (( monitor_count > 1 )); then
+if (( MONITOR_COUNT > 1 )); then
   source "$ITEM_DIR/spaces_multiple.sh"
   #source "$ITEM_DIR/spaces_single.sh"  
 fi
 
-# Front app!!
-# sketchybar --add item front_app left \
-#   --set front_app icon.drawing=off \
-#   script="$PLUGIN_DIR/front_app.sh" \
-#   --subscribe front_app front_app_switched
+source "$ITEM_DIR/front_app.sh"
 
-
-# # sketchybar --add item chevron left \
-# #            --set chevron icon= label.drawing=off \
-sketchybar    --add item front_app q \
-              --set front_app icon.drawing=off script="$PLUGIN_DIR/front_app.sh" \
-              --subscribe front_app front_app_switched
-
-
-######################################
-# Right Items
-######################################
-
-# Some items refresh on a fixed cycle, e.g. the clock runs its script once
-# every 10s. Other items respond to events they subscribe to, e.g. the
-# volume.sh script is only executed once an actual change in system audio
-# volume is registered. More info about the event system can be found here:
-# https://felixkratz.github.io/SketchyBar/config/events
-
-sketchybar --add item clock right \
-           --set clock update_freq=20 script="$PLUGIN_DIR/clock.sh" \
-             display=1 \
-           \
-           --add item battery right \
-           --set battery update_freq=60 script="$PLUGIN_DIR/battery.sh" \
-              display=1\
-           --subscribe battery system_woke power_source_change
+##### Right Items ##### 
+source "$ITEM_DIR/clock.sh"
+source "$ITEM_DIR/battery.sh"
              
+#####  Groups #####
 
-#### Groups ####
-sketchybar  --add bracket calander clock \
-            --set clock background.color="$DarkSlateGray" \
-              background.corner_radius=10 \
-              background.height=30\
-              background.padding_left=5 \
+# sketchybar --add bracket spaces '/space\..*/' \
+#            --set spaces background.color=$YELLOW \
+#               background.corner_radius=10 \
+#               background.height=30
 
  #  --add item volume right \
           #  --set volume script="$PLUGIN_DIR/volume.sh" \

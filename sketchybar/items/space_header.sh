@@ -3,19 +3,17 @@
 #### basic icon setup ####
 sketchybar --add item space_header left                                         \
            --set space_header                                                   \
-             background.corner_radius=5                                         \
-             background.color=$DarkSlateBlue                                    \
+             background.color=$(getcolor black)                                 \
              background.drawing=on                                              \
-             background.padding_left=0                                          \
+             background.padding_left=3                                          \
              background.padding_right=3                                         \
              background.y_offset=-1                                             \
              icon="􀣺"                                                          \
+             icon.color=$(getcolor purple)                                      \
              icon.padding_left=5                                                \
              icon.padding_right=5                                               \
-             icon.margin_right=0                                                \
              label.drawing=off                                                  \
              label.padding_left=0                                               \
-             label.margin_left=0                                                \
              y_offset=1 
 
 #### click behavior ####

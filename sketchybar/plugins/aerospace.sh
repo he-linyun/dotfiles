@@ -13,6 +13,9 @@ PLUGIN_DIR="$CONFIG_DIR/plugins"
 source "$CONFIG_DIR/colors.sh"
 source "$PLUGIN_DIR/space_functions.sh"
 
+# select color palette
+STYLE=("${TOKYONIGHT[@]}")
+
 # aerospace_mode_change is triggered when the mode is changed
 # we only need to update the space_header item
 # input variables from aerospace_mode_change:
@@ -44,18 +47,23 @@ fi
 #   TARGET_MONITOR: the monitor where the focused workspace is located
 if [[ "$SENDER" == "aerospace_workspace_change" ]]; then 
   sketchybar --set space."$FOCUSED_WORKSPACE"                      \
-               background.color=$RED                               \
-               label.shadow.drawing=on                             \
-               icon.shadow.drawing=on                              \
+               background.border_color=$(getcolor white)           \
+               background.color=$(getcolor cyan)                   \
+               icon.color=$(getcolor black)                        \
+               icon.shadow.drawing=off                             \
                icon.shadow.distance=3                              \
-               background.border_width=2                           \
-               background.border_color=$BABYBLUE 
+               label.color=$(getcolor black)                       \
+               label.shadow.drawing=off                            
+                                           
+               
 
   sketchybar --set space."$PREV_WORKSPACE"                         \
-               background.color=$DarkSlateBlue                     \
-               label.shadow.drawing=off                            \
+               background.border_color=$(getcolor purple)          \
+               background.color=$(getcolor black)                  \
+               icon.color=$(getcolor white)                        \
                icon.shadow.drawing=off                             \
-               background.border_width=0
+               label.color=$(getcolor white)                       \
+               label.shadow.drawing=off                            
 
   exit 0
 fi

@@ -9,12 +9,13 @@
 # - space_windows_change: triggered when windows in a workspace are changed (opened/closed/moved)
 # - front_app_switched: triggered when the front app is switched
 
-PLUGIN_DIR="$CONFIG_DIR/plugins"
-source "$CONFIG_DIR/colors.sh"
-source "$PLUGIN_DIR/space_functions.sh"
+# It requires the following variables to be set:
+#   MONITOR_COUNT: is set in sketchybarrc
+#   HELPER_DIR: is set in sketchybarrc
 
-# select color palette
-STYLE=("${TOKYONIGHT[@]}")
+HELPER_DIR="$CONFIG_DIR/helpers"
+source "$HELPER_DIR/colors.sh"
+source "$HELPER_DIR/aerospace.sh"
 
 # aerospace_mode_change is triggered when the mode is changed
 # we only need to update the space_header item
@@ -46,25 +47,23 @@ fi
 #   FOCUSED_WORKSPACE: the workspace that is focused
 #   TARGET_MONITOR: the monitor where the focused workspace is located
 if [[ "$SENDER" == "aerospace_workspace_change" ]]; then 
-  sketchybar --set space."$FOCUSED_WORKSPACE"                      \
-               background.border_color=$(getcolor white)           \
-               background.color=$(getcolor cyan)                   \
-               icon.color=$(getcolor black)                        \
-               icon.shadow.drawing=off                             \
-               icon.shadow.distance=3                              \
-               label.color=$(getcolor black)                       \
-               label.shadow.drawing=off                            
-                                           
-               
+  # update space item styles
+  sketchybar --set space."$FOCUSED_WORKSPACE" "${space_item_focused[@]}" 
+  sketchybar --set space."$PREV_WORKSPACE" "${space_item_unfocused[@]}"
 
-  sketchybar --set space."$PREV_WORKSPACE"                         \
-               background.border_color=$(getcolor purple)          \
-               background.color=$(getcolor black)                  \
-               icon.color=$(getcolor white)                        \
-               icon.shadow.drawing=off                             \
-               label.color=$(getcolor white)                       \
-               label.shadow.drawing=off                            
-
+  # single monitor mode: only focused workspace displays the labels
+  if (( MONITOR_COUNT == 1 )); then
+    if ! is_workspace_special "$FOCUSED_WORKSPACE"; then
+      sketchybar --set space."$FOCUSED_WORKSPACE" drawing=on
+      update_workspace_icons "$FOCUSED_WORKSPACE"
+    fi
+    
+    if [[ -z "$(aerospace list-windows --workspace "$PREV_WORKSPACE")" ]]; then
+      sketchybar --set space."$PREV_WORKSPACE" drawing=off
+    else
+      sketchybar --set space."$PREV_WORKSPACE" label.drawing=off
+    fi    
+  fi
   exit 0
 fi
 
@@ -76,14 +75,20 @@ fi
 #   NEW_WORKSPACE: the workspace where the node is moved to
 if [[ "$SENDER" == "aerospace_move_node" ]]; then
   update_workspace_icons "$OLD_WORKSPACE"
-  update_workspace_icons "$NEW_WORKSPACE"
+  
+  if (( MONITOR_COUNT > 1 )); then
+    update_workspace_icons "$NEW_WORKSPACE"
+  else
+    sketchybar --set space."$NEW_WORKSPACE" drawing=on
+  fi  
   exit 0
 fi
+# Note: in my aerospace setting, moving a node would not automatically change the focus
+# so we do not need to make old_workspace drawing=off in this step (because it is still focused)
 
 # if event space_windows_change is triggered
 # this is triggered when windows in a workspace are changed (opened/closed/moved)
 # update the icons except the special workspaces
-SPECIAL=("Calendar" "Git" "Obsidian" "Pdf" "VS_Code" "X" "Zotero")
 FOCUSED_WORKSPACE="$(aerospace list-workspaces --focused)"
 
 is_special=0
@@ -95,5 +100,6 @@ for ws in "${SPECIAL[@]}"; do
 done
 
 if [[ $is_special -eq 0 ]]; then
+  sketchybar --set space."$FOCUSED_WORKSPACE" drawing=on
   update_workspace_icons "$FOCUSED_WORKSPACE"
 fi

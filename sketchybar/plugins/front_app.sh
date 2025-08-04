@@ -5,9 +5,10 @@
 # focused application in the $INFO variable:
 # https://felixkratz.github.io/SketchyBar/config/events#events-and-scripting
 
-PLUGIN_DIR="$CONFIG_DIR/plugins"
+HELPER_DIR="$CONFIG_DIR/helpers"
+
 font_app_item=(
-  icon="$($PLUGIN_DIR/icon_map.sh "$INFO")"
+  icon="$($HELPER_DIR/icon_map.sh "$INFO")"
   icon.font="sketchybar-app-font:Regular:16.0"
   icon.drawing=on
   label="$INFO"

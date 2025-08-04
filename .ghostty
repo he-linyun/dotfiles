@@ -1,5 +1,6 @@
 # Run `ghostty +show-config --default --docs` to view full config options
 # also available at https://ghostty.org/docs/config
+# default keybindings can be found at https://gist.github.com/hensg/43bc71c21d1f79385892352a390aa2ca
 
 # Any line beginning with a # is a comment. 
 # it is not acceptable to put # after a config option
@@ -20,14 +21,16 @@ keybind = cmd+shift+j=new_split:down
 keybind = cmd+shift+k=new_split:up
 keybind = cmd+shift+l=new_split:right
 keybind = cmd+h=goto_split:left
-keybind = cmd+k=goto_split:up
 keybind = cmd+j=goto_split:down
+keybind = cmd+k=goto_split:up
 keybind = cmd+l=goto_split:right
 keybind = cmd+shift+up=resize_split:up,10
 keybind = cmd+shift+down=resize_split:down,10
 keybind = cmd+shift+left=resize_split:left,10
 keybind = cmd+shift+right=resize_split:right,10
 keybind = cmd+shift+z=toggle_split_zoom
+
+# in my karabiner setup, I have remmaped right cmd+h/j/k/l to left/down/up/right
 
 # default reload config
 keybind = cmd+shift+,=reload_config

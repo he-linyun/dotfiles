@@ -24,6 +24,7 @@ sketchybar --add event aerospace_workspace_change
 sketchybar --add event aerospace_monitor_change
 sketchybar --add event aerospace_move_node
 sketchybar --add event aerospace_mode_change
+sketchybar --add event aerospace_app_query
 
 ##### Left Items #####
 source "$ITEM_DIR/placeholder.sh" space_general_left left
@@ -38,16 +39,13 @@ source "$ITEM_DIR/placeholder.sh" space_special_right e
 #   source "$ITEM_DIR/front_app.sh"
 # fi
 #source "$ITEM_DIR/front_app.sh"
-##### Right Items ##### 
 
+##### Right Items ##### 
 source "$ITEM_DIR/placeholder.sh" notification_right right
 sketchybar --set notification_right display=1
-
 source "$ITEM_DIR/clock.sh"
-
 source "$ITEM_DIR/placeholder.sh" aa right
 sketchybar --set aa display=1
-
 source "$ITEM_DIR/battery.sh"
 source "$ITEM_DIR/placeholder.sh" notification_left right
 sketchybar --set notification_left display=1

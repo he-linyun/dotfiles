@@ -71,8 +71,8 @@ automatically-unhide-macos-hidden-apps = true
     outer.left = 0
     outer.bottom = 0
     outer.top = [
-        { monitor."built-in" = 5 }, # notch height 32, default menu bar 37
-        37
+        { monitor."built-in" = 0 }, # notch height 32, apple's default menu bar 37
+        32
 ]
     outer.right = 0
 
@@ -377,9 +377,9 @@ run = 'layout floating'
 if.app-id = 'com.apple.MobileSMS'
 run = 'layout floating'
 
-[[on-window-detected]]
-if.app-id = 'com.apple.Preview'
-run = 'move-node-to-workspace P'
+# [[on-window-detected]]
+# if.app-id = 'com.apple.Preview'
+# run = 'move-node-to-workspace P'
 
 [[on-window-detected]]
 if.app-id = 'com.apple.reminders'

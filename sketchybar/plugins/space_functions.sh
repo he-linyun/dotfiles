@@ -10,7 +10,7 @@ update_workspace_icons() {
     icon_strip=" "
     while read -r app; do
       [ -z "$app" ] && continue
-      icon_strip+=" $($PLUGIN_DIR/icon_map.sh "$app")"
+      icon_strip+="$($PLUGIN_DIR/icon_map.sh "$app")"
     done <<<"$apps"
     sketchybar --set space."$ws" label="$icon_strip" label.drawing=on
   fi

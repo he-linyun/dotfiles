@@ -18,6 +18,7 @@ brew "zsh-syntax-highlighting"
 # ── Casks ──
 cask "adobe-acrobat-pro"
 cask "aerospace"
+cask "arc"
 cask "calibre"
 cask "chatgpt"
 cask "discord"

@@ -4,6 +4,7 @@ tap "FelixKratz/formulae"  # for sketchybar
 
 # ── Formulae ──
 brew "asitop"
+brew "coreutils"
 brew "fastfetch"
 brew "git"
 brew "jq"
@@ -41,6 +42,7 @@ cask "moonlight"
 cask "obsidian"
 cask "sketchybar"
 cask "stats"
+cask "sublime-text"
 cask "texstudio"
 cask "visual-studio-code"
 cask "vlc"

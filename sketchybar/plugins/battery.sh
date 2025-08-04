@@ -1,6 +1,7 @@
 #!/usr/bin/env bash
 
-source "$CONFIG_DIR/colors.sh"
+HELPER_DIR="$CONFIG_DIR/helpers"
+source "$HELPER_DIR/colors.sh"
 
 PERCENTAGE="$(pmset -g batt | grep -Eo "\d+%" | cut -d% -f1)"
 CHARGING="$(pmset -g batt | grep 'AC Power')"

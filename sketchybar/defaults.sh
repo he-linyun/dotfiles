@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-source "$CONFIG_DIR/colors.sh"
+source "$HELPER_DIR/colors.sh"
 
 # Bar Appearance
 bar=(

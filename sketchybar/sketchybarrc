@@ -4,17 +4,18 @@
 # project home:       https://github.com/FelixKratz/SketchyBar
 # config reference:   https://felixkratz.github.io/SketchyBar/config
 
+HELPER_DIR="$CONFIG_DIR/helpers"
 ITEM_DIR="$CONFIG_DIR/items"
 PLUGIN_DIR="$CONFIG_DIR/plugins"
 
-########################################################
-## different layouts for single and multiple monitors ##
-########################################################
+##########################################################################
+## different layouts for single and multiple monitors                   ##
+## WARNING: do NOT call system_profiler in a script, it is very slow!   ##
+##########################################################################
 MONITOR_COUNT=$(system_profiler SPDisplaysDataType | grep -c "Resolution")
 
 #### SketchyBar Configuration ####
 source "$CONFIG_DIR/defaults.sh"
-
 sketchybar --bar "${bar[@]}" --default "${item_defaults[@]}"
 
 ##### Mission Control Space Indicators #####
@@ -27,18 +28,10 @@ sketchybar --add event aerospace_mode_change
 ##### Left Items #####
 source "$ITEM_DIR/placeholder.sh" space_general_left left
 source "$ITEM_DIR/placeholder.sh" space_special_left e
-source "$ITEM_DIR/space_header.sh"
-# single monitor
-if (( MONITOR_COUNT == 1 )); then
-  source "$ITEM_DIR/spaces_single.sh"  
-else # multiple monitors
-  source "$ITEM_DIR/spaces_multiple.sh"
-fi
-
+source "$ITEM_DIR/aerospace_header.sh"
+source "$ITEM_DIR/aerospaces.sh"
 source "$ITEM_DIR/placeholder.sh" space_general_right left
 source "$ITEM_DIR/placeholder.sh" space_special_right e
-
-
 
 ##### Center Items #####
 # if (( MONITOR_COUNT > 1 )); then
@@ -47,16 +40,19 @@ source "$ITEM_DIR/placeholder.sh" space_special_right e
 #source "$ITEM_DIR/front_app.sh"
 ##### Right Items ##### 
 
-source "$ITEM_DIR/placeholder.sh" notification_right right 1
+source "$ITEM_DIR/placeholder.sh" notification_right right
+sketchybar --set notification_right display=1
+
 source "$ITEM_DIR/clock.sh"
 
-source "$ITEM_DIR/placeholder.sh" aa right 1
+source "$ITEM_DIR/placeholder.sh" aa right
+sketchybar --set aa display=1
 
 source "$ITEM_DIR/battery.sh"
-source "$ITEM_DIR/placeholder.sh" notification_left right 1
+source "$ITEM_DIR/placeholder.sh" notification_left right
+sketchybar --set notification_left display=1
 
 ##### Brackets #####
-
 spaces_general_items=(
   space_general_left
   space_header
@@ -66,20 +62,15 @@ spaces_general_items=(
 sketchybar --add bracket spaces_general "${spaces_general_items[@]}" \
            --set spaces_general "${bracket_defaults[@]}"
 
-spaces_special_items=(
-  space_special_left
-  $SPECIAL_SPACES
-  space_special_right
-)
-sketchybar --add bracket spaces_special "${spaces_special_items[@]}" \
-           --set spaces_special "${bracket_defaults[@]}"
-
-# sketchybar --add bracket spaces_general space_general_left space_header $GENERAL_SPACES space_general_right \
-#            --set spaces_general "${bracket_defaults[@]}"
-
-# sketchybar --add bracket spaces_special space_special_left $SPECIAL_SPACES   space_special_right            \
-#            --set spaces_special  "${bracket_defaults[@]}"       
-
+if (( MONITOR_COUNT > 1 )); then  # multiple monitors: display the special workspaces
+  spaces_special_items=(
+    space_special_left
+    $SPECIAL_SPACES
+    space_special_right
+  )
+  sketchybar --add bracket spaces_special "${spaces_special_items[@]}" \
+            --set spaces_special "${bracket_defaults[@]}"
+fi
 
 spaces_clock_items=(
   notification_right
@@ -90,12 +81,6 @@ spaces_clock_items=(
 )
 sketchybar --add bracket spaces_clock "${spaces_clock_items[@]}" \
            --set spaces_clock "${bracket_defaults[@]}"
-
-# sketchybar --add bracket spaces_clock notification_right clock aa battery          notification_left                                                       \
-#            --set spaces_clock  "${bracket_defaults[@]}"               
-
-# sketchybar --add bracket spaces_battery battery                                                             \
-#            --set spaces_battery  "${bracket_defaults[@]}"
-
+           
 ##### Force all scripts to run the first time (never do this in a script) #####
 sketchybar --update

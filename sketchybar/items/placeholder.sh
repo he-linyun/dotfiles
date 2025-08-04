@@ -3,12 +3,10 @@
 # inputs:
 # $1: item name
 # $2: position (left, right, center, q, e)
-# $3: (optional) display (default: all)
-# $4: (optional) width (default: 4)
+# $3: (optional) width (default: 4)
 
 placeholder=(
-  display=${3:-all}
-  width=${4:-4}
+  width=${3:-4}
   icon.padding_left=0
   icon.padding_right=0
   padding_left=0

@@ -12,9 +12,9 @@
 GENERAL=(
   "1" "2" "3" "4" "5" "6"
   "Q" "W" "E" "R" "T" "Y"
-  "A" "S" "D" "F"
+  "A" "S" "D" "F" "G"
 )
-SPECIAL=("Calendar" "Git" "Obsidian" "Pdf" "VS_Code" "X" "Zotero")
+SPECIAL=("Zotero" "X" "Calendar" "VS_Code" "Books" "Notes" "M")
 
 is_workspace_special() {
   local sid="$1"

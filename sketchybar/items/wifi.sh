@@ -2,9 +2,9 @@
 
 source "$HELPER_DIR/colors.sh"
 
-# wifi: shown in clock bracket (single monitor)
 item_wifi=(
   update_freq=20
+  display=1
   icon=󰤨
   icon.color=$(getcolor green)
   label.drawing=off

@@ -12,7 +12,7 @@ PLUGIN_DIR="$CONFIG_DIR/plugins"
 MONITOR_COUNT=$(aerospace list-monitors 2>/dev/null | wc -l | tr -d ' ')
 
 #### SketchyBar Default Configuration ####
-source "$CONFIG_DIR/defaults.sh"
+source "$HELPER_DIR/defaults.sh"
 sketchybar --bar "${bar[@]}" --default "${item_defaults[@]}"
 
 ##### Mission Control Space Indicators #####
@@ -23,70 +23,67 @@ sketchybar --add event aerospace_move_node
 sketchybar --add event aerospace_mode_change
 sketchybar --add event aerospace_app_query
 
-##### Left Items #####
+##### Items and Brackets #####
+# aerospace general
 source "$ITEM_DIR/placeholder.sh" space_general_left left
-source "$ITEM_DIR/placeholder.sh" space_special_left e
 source "$ITEM_DIR/aerospace_header.sh"
-source "$ITEM_DIR/aerospaces.sh"
+source "$ITEM_DIR/aerospaces_general.sh"
 source "$ITEM_DIR/placeholder.sh" space_general_right left
+spaces_general_items=(space_general_left space_header $GENERAL_SPACES space_general_right)
+sketchybar --add bracket spaces_general "${spaces_general_items[@]}" \
+           --set spaces_general "${bracket_defaults[@]}"
+
+# aerospace special
+source "$ITEM_DIR/placeholder.sh" space_special_left e
+source "$ITEM_DIR/aerospaces_special.sh"
 source "$ITEM_DIR/placeholder.sh" space_special_right e
+if (( MONITOR_COUNT > 1 )); then
+  spaces_special_items=(space_special_left $SPECIAL_SPACES space_special_right)
+  sketchybar --add bracket spaces_special "${spaces_special_items[@]}" \
+            --set spaces_special "${bracket_defaults[@]}"
+fi
 
-##### Center Items #####
-# if (( MONITOR_COUNT > 1 )); then
-#   source "$ITEM_DIR/front_app.sh"
-# fi
-#source "$ITEM_DIR/front_app.sh"
-
-##### Right Items ##### 
-# time and battery
+# battery, wifi and clock
+source "$ITEM_DIR/placeholder.sh" indicator right # leave space for screen recording indicator; the indicator is changed in macOS 26.3.1
 source "$ITEM_DIR/placeholder.sh" notification_right right
-sketchybar --set notification_right display=1
 source "$ITEM_DIR/clock.sh"
 source "$ITEM_DIR/placeholder.sh" clock_gap right
-sketchybar --set clock_gap display=1
 source "$ITEM_DIR/wifi.sh"
 source "$ITEM_DIR/placeholder.sh" wifi_gap right
-sketchybar --set wifi_gap display=1
+source "$ITEM_DIR/volume.sh"
 source "$ITEM_DIR/battery.sh"
 source "$ITEM_DIR/placeholder.sh" notification_left right
+sketchybar --set indicator display=1
+sketchybar --set notification_right display=1
+sketchybar --set clock_gap display=1
+sketchybar --set wifi_gap display=1
 sketchybar --set notification_left display=1
+spaces_clock_items=(notification_right clock clock_gap wifi wifi_gap volume battery notification_left)
+sketchybar --add bracket spaces_clock "${spaces_clock_items[@]}" \
+           --set spaces_clock "${bracket_defaults[@]}"
 
 # system info
 source "$ITEM_DIR/placeholder.sh" bracket_gap right 8
 source "$ITEM_DIR/placeholder.sh" sys_right right
-source "$ITEM_DIR/placeholder.sh" wifi_sys_gap right
 source "$ITEM_DIR/gpu.sh"
 source "$ITEM_DIR/placeholder.sh" gpu_ram_gap right
 source "$ITEM_DIR/ram.sh"
 source "$ITEM_DIR/placeholder.sh" ram_cpu_gap right
 source "$ITEM_DIR/cpu.sh"
 source "$ITEM_DIR/placeholder.sh" sys_left right
+if (( MONITOR_COUNT > 1 )); then # multi-monitor display
+  sketchybar --set bracket_gap drawing=off
+  sketchybar --set sys_right display=2
+  sketchybar --set gpu_ram_gap display=2
+  sketchybar --set ram_cpu_gap display=2
+  sketchybar --set sys_left display=2
+fi
+spaces_sys_items=(sys_right gpu gpu_ram_gap ram ram_cpu_gap cpu sys_left)
+sketchybar --add bracket spaces_sys "${spaces_sys_items[@]}" \
+           --set spaces_sys "${bracket_defaults[@]}"
 
 # invisible item for updating brackets on monitor change
-source "$ITEM_DIR/monitor_handler.sh"
+source "$ITEM_DIR/bracket_handler.sh"
 
-##### Brackets #####
-spaces_general_items=(
-  space_general_left
-  space_header
-  $GENERAL_SPACES
-  space_general_right
-)
-sketchybar --add bracket spaces_general "${spaces_general_items[@]}" \
-           --set spaces_general "${bracket_defaults[@]}"
-
-if (( MONITOR_COUNT > 1 )); then
-  spaces_special_items=(
-    space_special_left
-    $SPECIAL_SPACES
-    space_special_right
-  )
-  sketchybar --add bracket spaces_special "${spaces_special_items[@]}" \
-            --set spaces_special "${bracket_defaults[@]}"
-fi
-
-# Run bracket_update.sh for initial setup (sets display, moves wifi, creates clock/sys brackets)
-source "$PLUGIN_DIR/bracket_update.sh"
-           
 ##### Force all scripts to run the first time (never do this in a script) #####
 sketchybar --update

@@ -1,20 +1,25 @@
 #!/usr/bin/env bash
 
-# The volume_change event supplies a $INFO variable in which the current volume
-# percentage is passed to the script.
+HELPER_DIR="$CONFIG_DIR/helpers"
+source "$HELPER_DIR/colors.sh"
 
-if [ "$SENDER" = "volume_change" ]; then
-  VOLUME="$INFO"
+SF_FONT="SF Pro:Regular:14.0"
 
-  case "$VOLUME" in
-    [6-9][0-9]|100) ICON="󰕾"
-    ;;
-    [3-5][0-9]) ICON="󰖀"
-    ;;
-    [1-9]|[1-2][0-9]) ICON="󰕿"
-    ;;
-    *) ICON="󰖁"
-  esac
+# $INFO is provided by the volume_change event
+VOLUME="${INFO:-$(osascript -e 'output volume of (get volume settings)')}"
 
-  sketchybar --set "$NAME" icon="$ICON" label="$VOLUME%"
+if [[ "$VOLUME" -eq 0 ]]; then
+  ICON="􀊢"
+  COLOR=$(getcolor red)
+elif [[ "$VOLUME" -le 30 ]]; then
+  ICON="􀊤"
+  COLOR=$(getcolor green)
+elif [[ "$VOLUME" -le 60 ]]; then
+  ICON="􀊦"
+  COLOR=$(getcolor green)
+else
+  ICON="􀊨"
+  COLOR=$(getcolor green)
 fi
+
+sketchybar --set "$NAME" icon="$ICON" icon.font="$SF_FONT" icon.color="$COLOR"

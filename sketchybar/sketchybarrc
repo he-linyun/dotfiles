@@ -8,18 +8,15 @@ HELPER_DIR="$CONFIG_DIR/helpers"
 ITEM_DIR="$CONFIG_DIR/items"
 PLUGIN_DIR="$CONFIG_DIR/plugins"
 
-##########################################################################
-## different layouts for single and multiple monitors                   ##
-## WARNING: do NOT call system_profiler in a script, it is very slow!   ##
-##########################################################################
-MONITOR_COUNT=$(system_profiler SPDisplaysDataType | grep -c "Resolution")
+# WARNING: do NOT call system_profiler in a script, it is very slow!
+MONITOR_COUNT=$(aerospace list-monitors 2>/dev/null | wc -l | tr -d ' ')
 
-#### SketchyBar Configuration ####
+#### SketchyBar Default Configuration ####
 source "$CONFIG_DIR/defaults.sh"
 sketchybar --bar "${bar[@]}" --default "${item_defaults[@]}"
 
 ##### Mission Control Space Indicators #####
-# aerospace related events
+# aerospace related events, see .aerospace.toml
 sketchybar --add event aerospace_workspace_change
 sketchybar --add event aerospace_monitor_change
 sketchybar --add event aerospace_move_node
@@ -41,14 +38,32 @@ source "$ITEM_DIR/placeholder.sh" space_special_right e
 #source "$ITEM_DIR/front_app.sh"
 
 ##### Right Items ##### 
+# time and battery
 source "$ITEM_DIR/placeholder.sh" notification_right right
 sketchybar --set notification_right display=1
 source "$ITEM_DIR/clock.sh"
-source "$ITEM_DIR/placeholder.sh" aa right
-sketchybar --set aa display=1
+source "$ITEM_DIR/placeholder.sh" clock_gap right
+sketchybar --set clock_gap display=1
+source "$ITEM_DIR/wifi.sh"
+source "$ITEM_DIR/placeholder.sh" wifi_gap right
+sketchybar --set wifi_gap display=1
 source "$ITEM_DIR/battery.sh"
 source "$ITEM_DIR/placeholder.sh" notification_left right
 sketchybar --set notification_left display=1
+
+# system info
+source "$ITEM_DIR/placeholder.sh" bracket_gap right 8
+source "$ITEM_DIR/placeholder.sh" sys_right right
+source "$ITEM_DIR/placeholder.sh" wifi_sys_gap right
+source "$ITEM_DIR/gpu.sh"
+source "$ITEM_DIR/placeholder.sh" gpu_ram_gap right
+source "$ITEM_DIR/ram.sh"
+source "$ITEM_DIR/placeholder.sh" ram_cpu_gap right
+source "$ITEM_DIR/cpu.sh"
+source "$ITEM_DIR/placeholder.sh" sys_left right
+
+# invisible item for updating brackets on monitor change
+source "$ITEM_DIR/monitor_handler.sh"
 
 ##### Brackets #####
 spaces_general_items=(
@@ -60,7 +75,7 @@ spaces_general_items=(
 sketchybar --add bracket spaces_general "${spaces_general_items[@]}" \
            --set spaces_general "${bracket_defaults[@]}"
 
-if (( MONITOR_COUNT > 1 )); then  # multiple monitors: display the special workspaces
+if (( MONITOR_COUNT > 1 )); then
   spaces_special_items=(
     space_special_left
     $SPECIAL_SPACES
@@ -70,15 +85,8 @@ if (( MONITOR_COUNT > 1 )); then  # multiple monitors: display the special works
             --set spaces_special "${bracket_defaults[@]}"
 fi
 
-spaces_clock_items=(
-  notification_right
-  clock
-  aa
-  battery
-  notification_left
-)
-sketchybar --add bracket spaces_clock "${spaces_clock_items[@]}" \
-           --set spaces_clock "${bracket_defaults[@]}"
+# Run bracket_update.sh for initial setup (sets display, moves wifi, creates clock/sys brackets)
+source "$PLUGIN_DIR/bracket_update.sh"
            
 ##### Force all scripts to run the first time (never do this in a script) #####
 sketchybar --update

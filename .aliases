@@ -12,4 +12,3 @@ alias reload='source ~/.zshrc'
 
 # app specific
 alias lg='lazygit'
-

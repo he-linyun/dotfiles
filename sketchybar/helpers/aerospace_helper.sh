@@ -5,10 +5,6 @@
 ###############################
 
 #### workspace definitions ####
-# my setting: QWERTY are fixed in the built-in monitor
-#             123456 are fixed in the external monitor (usually a large one)
-#             all others can be moved freely
-#             special workspaces contain specific apps
 GENERAL=(
   "1" "2" "3" "4" "5" "6"
   "Q" "W" "E" "R" "T" "Y"

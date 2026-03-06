@@ -1,0 +1,41 @@
+# Run `ghostty +show-config --default --docs` to view full config options
+# also available at https://ghostty.org/docs/config
+
+# Any line beginning with a # is a comment. 
+# it is not acceptable to put # after a config option
+
+# ==========================
+
+theme = "tokyonight"
+
+copy-on-select = true
+mouse-hide-while-typing = true
+background-opacity = 0.90
+
+# keybindings
+# do not define anything for tab, as tab is currently incompatible with aerospace
+# split is different from tab
+keybind = cmd+shift+h=new_split:left
+keybind = cmd+shift+j=new_split:down
+keybind = cmd+shift+k=new_split:up
+keybind = cmd+shift+l=new_split:right
+keybind = cmd+h=goto_split:left
+keybind = cmd+k=goto_split:up
+keybind = cmd+j=goto_split:down
+keybind = cmd+l=goto_split:right
+keybind = cmd+shift+up=resize_split:up,10
+keybind = cmd+shift+down=resize_split:down,10
+keybind = cmd+shift+left=resize_split:left,10
+keybind = cmd+shift+right=resize_split:right,10
+keybind = cmd+shift+z=toggle_split_zoom
+
+# default reload config
+keybind = cmd+shift+,=reload_config
+
+# to define forward delete
+keybind = shift+backspace=csi:3;2~
+#keybind = cmd+backspace=csi:3;9~
+
+
+
+

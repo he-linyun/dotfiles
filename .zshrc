@@ -1,0 +1,1 @@
+[ -f "$HOME/.dotfiles/.aliases" ] && source "$HOME/.dotfiles/.aliases"

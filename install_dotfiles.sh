@@ -9,13 +9,16 @@ fi
 set -e
 
 DOTFILES_DIR="$HOME/.dotfiles"
+BACKUP_DIR="$HOME/.dotfiles-backup/$(date +%Y%m%d-%H%M%S)"
 
+# "name of config in dotfiles directory" "path to symlink in home directory"
 FILES_TO_SYMLINK=(
   ".aerospace.toml" "$HOME/.aerospace.toml"
   ".gitconfig" "$HOME/.gitconfig"
   ".ghostty" "$HOME/Library/Application Support/com.mitchellh.ghostty/config"
   "karabiner.json" "$HOME/.config/karabiner/karabiner.json"
   "nvim" "$HOME/.config/nvim"
+  "sketchybar" "$HOME/.config/sketchybar"
   ".zshrc" "$HOME/.zshrc"
 )
 
@@ -33,7 +36,8 @@ for ((i = 0; i < ${#FILES_TO_SYMLINK[@]}; i+=2)); do
 
   if [ -e "$dst" ] || [ -L "$dst" ]; then
     if [ "$(readlink "$dst")" != "$src" ]; then
-      backup="$dst.backup.$(date +%s)"
+      backup="$BACKUP_DIR/$src_relative"
+      mkdir -p "$(dirname "$backup")"
       mv "$dst" "$backup"
       printf "\033[31mWarning:\033[0m %s already exists and is not symlinked to %s\n" "$dst" "$src"
       echo "Backed up existing file to $backup"

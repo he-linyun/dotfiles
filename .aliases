@@ -1,0 +1,16 @@
+# navigations
+alias ..="cd .."
+alias ...="cd ../.."
+alias dl="cd ~/Downloads"
+alias dot="cd ~/.dotfiles"
+alias p="cd ~/Vault/projects"
+
+alias la="ls -lAh"
+alias nosleep='caffeinate -d'
+alias reload='source ~/.zshrc'
+
+# app specific
+alias ff='fastfetch'
+alias lg='lazygit'
+
+alias note='docker compose -f ~/Vault/assets/docker-claude/docker-compose.yml run --rm claude-code'

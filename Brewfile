@@ -1,0 +1,84 @@
+# Formulae
+# brew "asitop"
+brew "coreutils"
+brew "fastfetch"
+brew "fzf"
+brew "git"
+brew "jq"
+brew "lazygit"
+brew "mas"
+brew "mole"
+brew "ncdu"
+brew "neovim"
+brew "node"
+brew "ruby"
+brew "felixkratz/formulae/sketchybar", trusted: true
+brew "syncthing", restart_service: :changed
+brew "tailscale", restart_service: :changed
+brew "tmux"
+brew "tree"
+brew "uv"
+brew "yazi"
+brew "zoxide"
+brew "zsh-autosuggestions"
+brew "zsh-syntax-highlighting"
+
+# Casks
+# cask "adobe-acrobat-pro"
+cask "nikitabobko/tap/aerospace", trusted: true
+cask "antigravity"
+# cask "arc"
+# cask "betterdisplay"
+# cask "calibre"
+# cask "chatgpt"
+cask "claude-code"
+cask "cyberduck"
+# cask "discord"
+cask "dropbox"
+# cask "foxitreader"
+cask "freefilesync"
+cask "ghostty"
+# cask "github"
+cask "google-chrome"
+# cask "itsycal"
+# cask "jan"
+# cask "jordanbaird-ice"
+cask "karabiner-elements"
+cask "logi-options+"
+cask "mactex"
+# cask "microsoft-edge"
+cask "microsoft-excel"
+cask "microsoft-outlook"
+# cask "microsoft-powerpoint"
+cask "microsoft-teams"
+cask "microsoft-word"
+cask "monitorcontrol"
+cask "moonlight"
+cask "obsidian"
+# cask "onedrive"
+cask "orbstack"
+# cask "pdfsam-basic"
+# cask "sioyek"
+# cask "stats"
+cask "stirling-pdf"
+# cask "sublime-text"
+# cask "texstudio"
+cask "typewhisper/tap/typewhisper", trusted: true
+cask "uuremote"
+cask "visual-studio-code"
+cask "vlc"
+cask "zen"
+cask "zoom"
+cask "zotero"
+
+# ── Fonts and Symbols ──
+cask "font-hack-nerd-font"
+cask "font-sf-pro"
+cask "font-sketchybar-app-font"
+cask "sf-symbols"
+
+# ── Mac App Store Apps ──
+mas "Commander One", id: 1035236694
+# mas "iWallpaper - Live Wallpaper", id: 1552826194
+# mas "pap.er 优雅壁纸", id:1639052102
+mas "Xcode", id: 497799835

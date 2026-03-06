@@ -26,3 +26,5 @@ bindkey '\e[Z' expand-or-complete # Show completion menu with Shift+Tab
 # other terminal emulators may not recognize these keybindings
 # bindkey '\e[3;2~' delete-char # Map shift+delete to forward delete
 #bindkey '\e[3;9~' delete-char # Map cmd+backspace to forward delete
+
+export PATH="/Users/linyun/.antigravity/antigravity/bin:$PATH"

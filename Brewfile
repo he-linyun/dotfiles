@@ -13,6 +13,7 @@ brew "zsh-syntax-highlighting"
 # ── Casks ──
 cask "aerospace"
 cask "discord"
+cask "ghostty"
 cask "github"
 cask "google-chrome"
 cask "mactex"

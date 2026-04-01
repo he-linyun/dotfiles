@@ -1,4 +1,3 @@
-
 ## macOS
 
 ```sh
@@ -19,6 +18,9 @@ winget install -e --id Microsoft.AppInstaller
 winget upgrade Microsoft.AppInstaller
 
 winget install --id Git.Git -e -s winget --accept-source-agreements --accept-package-agreements
+$env:Path = [System.Environment]::GetEnvironmentVariable("Path","Machine") + ";" + [System.Environment]::GetEnvironmentVariable("Path","User")
+
 git clone https://github.com/he-linyun/dotfiles.git $HOME/.dotfiles
-winget import -i "$HOME/.dotfiles/winget-packages.json" --accept-package-agreements --accept-source-agreements
+powershell -ExecutionPolicy Bypass -File "$HOME\.dotfiles\win_packages.ps1"
+powershell -ExecutionPolicy Bypass -File "$HOME\.dotfiles\win_dotfiles.ps1"
 ```

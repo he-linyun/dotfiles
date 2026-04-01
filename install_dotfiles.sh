@@ -14,6 +14,7 @@ FILES_TO_SYMLINK=(
   ".aerospace.toml" "$HOME/.aerospace.toml"
   ".gitconfig" "$HOME/.gitconfig"
   ".ghostty" "$HOME/Library/Application Support/com.mitchellh.ghostty/config"
+  "karabiner.json" "$HOME/.config/karabiner/karabiner.json"
   "nvim" "$HOME/.config/nvim"
   ".zshrc" "$HOME/.zshrc"
 )

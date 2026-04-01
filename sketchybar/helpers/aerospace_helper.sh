@@ -23,40 +23,59 @@ is_workspace_special() {
 }
 
 #### workspace and corresponding monitor id mapping ####
-# workspaces and their default monitor ids
-WORKSPACE_NAMES=()
-MONITOR_IDS=()
-while IFS=- read -r ws mon; do
-  WORKSPACE_NAMES+=("$ws")
-  MONITOR_IDS+=("$mon")
-done <<EOF
-$(aerospace list-workspaces --all --format "%{workspace}-%{monitor-appkit-nsscreen-screens-id}")
-EOF
+# AeroSpace monitor-id and SketchyBar arrangement-id can have different ordering.
+# We translate by monitor name, then map to SketchyBar display ids.
+
+get_aerospace_monitor_name_by_id() {
+  local mon_id="$1"
+  aerospace list-monitors \
+    | awk -F'|' -v id="$mon_id" '{gsub(/^ *| *$/, "", $1); gsub(/^ *| *$/, "", $2); if ($1 == id) { print $2; exit }}'
+}
+
+aerospace_monitor_id_to_display() {
+  local mon_id="$1"
+  local mon_name
+  mon_name=$(get_aerospace_monitor_name_by_id "$mon_id")
+
+  # Map physical displays to SketchyBar arrangement-id.
+  # Current setup:
+  #   AeroSpace: 1=DELL U2722D, 2=DELL S2725QS, 3=Built-in
+  #   SketchyBar displays: 1=Built-in, 2=DELL U2722D, 3=DELL S2725QS
+  case "$mon_name" in
+    "Built-in Retina Display"*) echo 1 ;;
+    "DELL U2722D"*) echo 2 ;;
+    "DELL S2725"*) echo 3 ;;
+    *) echo "${mon_id:-1}" ;;
+  esac
+}
+
+get_assigned_workspace_monitor_id() {
+  local sid="$1"
+  aerospace list-workspaces --all --format "%{workspace}|%{monitor-id}" \
+    | awk -F'|' -v ws="$sid" '$1 == ws { print $2; exit }'
+}
 
 # monitor id for a workspace; will echo nothing if the workspace is empty (no opened windows)
 get_active_workspace_monitor_id() {
   local sid="$1"
-  echo "$(aerospace list-windows --workspace "$sid" --format "%{monitor-appkit-nsscreen-screens-id}" | head -n1)"
+  echo "$(aerospace list-windows --workspace "$sid" --format "%{monitor-id}" | head -n1)"
 }
 
 # Function to get monitor id for a workspace
 get_monitor_id() {
   local sid="$1"
-  local apps
+  local mon
 
   # Try to get the monitor id from the current windows in the workspace
-  apps=$(get_active_workspace_monitor_id "$sid")
-  if [[ -z "$apps" ]]; then # Fallback: get from static mapping arrays
-    local i
-    for i in "${!WORKSPACE_NAMES[@]}"; do
-      if [[ "${WORKSPACE_NAMES[$i]}" == "$sid" ]]; then
-        echo "${MONITOR_IDS[$i]}"
-        return
-      fi
-    done
-  else
-    echo "${apps:-1}"
+  mon=$(get_active_workspace_monitor_id "$sid")
+  if [[ -n "$mon" ]]; then
+    aerospace_monitor_id_to_display "$mon"
+    return
   fi
+
+  # Fallback for empty workspaces: query current workspace assignment directly
+  mon=$(get_assigned_workspace_monitor_id "$sid")
+  aerospace_monitor_id_to_display "${mon:-1}"
 }
 
 #### workspace icon drawing ####

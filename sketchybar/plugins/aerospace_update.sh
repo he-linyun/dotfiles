@@ -90,7 +90,7 @@ fi
 #   FOCUSED_WORKSPACE: the workspace that is focused
 #   PREV_WORKSPACE: the workspace that was focused before
 if [[ "$SENDER" == "aerospace_monitor_change" ]]; then
-  sketchybar --set space."$FOCUSED_WORKSPACE" display="$TARGET_MONITOR"
+  sketchybar --set space."$FOCUSED_WORKSPACE" display="$(aerospace_monitor_id_to_display "$TARGET_MONITOR")"
   exit 0
 fi
 
@@ -101,6 +101,7 @@ fi
 #   PREV_WORKSPACE: the workspace that was focused before
 if [[ "$SENDER" == "aerospace_workspace_change" ]]; then 
   # update space item color styles
+  sketchybar --set space."$FOCUSED_WORKSPACE" display="$(get_monitor_id "$FOCUSED_WORKSPACE")"
   sketchybar --set space."$FOCUSED_WORKSPACE" "${aerospace_item_focused[@]}"
   sketchybar --set space."$PREV_WORKSPACE" "${aerospace_item_unfocused[@]}"
 

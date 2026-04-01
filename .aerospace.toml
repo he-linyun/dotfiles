@@ -120,19 +120,19 @@ automatically-unhide-macos-hidden-apps = true
     alt-shift-l = 'move right'
     alt-shift-ctrl-h = [
         'move-workspace-to-monitor left',
-        'exec-and-forget sketchybar --trigger aerospace_monitor_change TARGET_MONITOR=$(aerospace list-monitors --focused --format "%{monitor-appkit-nsscreen-screens-id}") FOCUSED_WORKSPACE=$(aerospace list-workspaces --focused)',
+        'exec-and-forget sketchybar --trigger aerospace_monitor_change TARGET_MONITOR=$(aerospace list-monitors --focused --format "%{monitor-id}") FOCUSED_WORKSPACE=$(aerospace list-workspaces --focused)',
     ]
     alt-shift-ctrl-j = [
         'move-workspace-to-monitor down',
-        'exec-and-forget sketchybar --trigger aerospace_monitor_change TARGET_MONITOR=$(aerospace list-monitors --focused --format "%{monitor-appkit-nsscreen-screens-id}") FOCUSED_WORKSPACE=$(aerospace list-workspaces --focused)',
+        'exec-and-forget sketchybar --trigger aerospace_monitor_change TARGET_MONITOR=$(aerospace list-monitors --focused --format "%{monitor-id}") FOCUSED_WORKSPACE=$(aerospace list-workspaces --focused)',
     ]
     alt-shift-ctrl-k = [
         'move-workspace-to-monitor up',
-        'exec-and-forget sketchybar --trigger aerospace_monitor_change TARGET_MONITOR=$(aerospace list-monitors --focused --format "%{monitor-appkit-nsscreen-screens-id}") FOCUSED_WORKSPACE=$(aerospace list-workspaces --focused)',
+        'exec-and-forget sketchybar --trigger aerospace_monitor_change TARGET_MONITOR=$(aerospace list-monitors --focused --format "%{monitor-id}") FOCUSED_WORKSPACE=$(aerospace list-workspaces --focused)',
     ]
     alt-shift-ctrl-l = [
         'move-workspace-to-monitor right',
-        'exec-and-forget sketchybar --trigger aerospace_monitor_change TARGET_MONITOR=$(aerospace list-monitors --focused --format "%{monitor-appkit-nsscreen-screens-id}") FOCUSED_WORKSPACE=$(aerospace list-workspaces --focused)',
+        'exec-and-forget sketchybar --trigger aerospace_monitor_change TARGET_MONITOR=$(aerospace list-monitors --focused --format "%{monitor-id}") FOCUSED_WORKSPACE=$(aerospace list-workspaces --focused)',
     ]
 
     # See: https://nikitabobko.github.io/AeroSpace/commands#workspace-back-and-forth
@@ -140,7 +140,7 @@ automatically-unhide-macos-hidden-apps = true
     # See: https://nikitabobko.github.io/AeroSpace/commands#move-workspace-to-monitor
     alt-shift-tab = [
         'move-workspace-to-monitor --wrap-around next',
-        'exec-and-forget sketchybar --trigger aerospace_monitor_change TARGET_MONITOR=$(aerospace list-monitors --focused --format "%{monitor-appkit-nsscreen-screens-id}") FOCUSED_WORKSPACE=$(aerospace list-workspaces --focused)',
+        'exec-and-forget sketchybar --trigger aerospace_monitor_change TARGET_MONITOR=$(aerospace list-monitors --focused --format "%{monitor-id}") FOCUSED_WORKSPACE=$(aerospace list-workspaces --focused)',
     ]
 
     alt-backtick = 'exec-and-forget sketchybar --trigger aerospace_app_query'
@@ -362,7 +362,10 @@ run = 'layout floating'
 
 [[on-window-detected]]
 if.app-id = 'com.apple.finder'
-run = 'layout floating'
+run = [
+    'layout floating',
+    'move-node-to-workspace F'
+]
 
 [[on-window-detected]]
 if.app-id = 'com.apple.findmy'
@@ -404,8 +407,16 @@ run = 'layout floating'
 
 # third-party apps
 [[on-window-detected]]
+if.app-id = 'com.google.antigravity'
+run = 'move-node-to-workspace VS_Code'
+
+[[on-window-detected]]
 if.app-id = 'org.freefilesync.FreeFileSync'
 run = 'layout floating'
+
+[[on-window-detected]]
+if.app-id = 'com.mitchellh.ghostty'
+run = 'move-node-to-workspace T'
 
 [[on-window-detected]]
 if.app-id = 'md.obsidian'
@@ -425,18 +436,23 @@ run = 'move-node-to-workspace Zotero'
 
 [workspace-to-monitor-force-assignment]
 # general workspaces
-1 = ['^DELL U.*$','secondary']
-2 = ['^DELL U.*$','secondary']
-3 = ['^DELL U.*$','secondary']
-4 = ['^DELL U.*$','secondary']
-5 = ['^DELL U.*$','secondary']
-6 = ['^DELL U.*$','secondary']
+1 = ['^DELL S.*$','secondary']
+2 = ['^DELL S.*$','secondary']
+3 = ['^DELL S.*$','secondary']
+4 = ['^DELL S.*$','secondary']
+5 = ['^DELL S.*$','secondary']
+6 = ['^DELL S.*$','secondary']
 Q = '^Built-in.*$'
 W = '^Built-in.*$'
 E = '^Built-in.*$'
 R = '^Built-in.*$'
 T = '^Built-in.*$'
 Y = '^Built-in.*$'
+A = '^DELL U.*$'
+S = '^DELL U.*$'
+#D = '^DELL U.*$'
+#F = '^DELL U.*$'
+#G = '^DELL U.*$'
 
 # special workspaces
 # Calendar = '^Built-in.*$'

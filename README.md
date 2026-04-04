@@ -8,7 +8,7 @@ eval "$(/opt/homebrew/bin/brew shellenv)"
 
 brew install git
 git clone https://github.com/he-linyun/dotfiles.git $HOME/.dotfiles
-/bin/bash "$HOME/.dotfiles/bootstrap.sh"
+/bin/bash "$HOME/.dotfiles/mac_bootstrap.sh"
 ```
 
 ## Windows

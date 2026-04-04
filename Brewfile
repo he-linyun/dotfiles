@@ -1,36 +1,41 @@
-# ── Taps ──
-tap "nikitabobko/tap"      # for aerospace
-tap "FelixKratz/formulae"  # for sketchybar
-
-# ── Formulae ──
-brew "asitop"
+# Formulae
+# brew "asitop"
 brew "coreutils"
 brew "fastfetch"
+brew "fzf"
 brew "git"
 brew "jq"
 brew "lazygit"
 brew "mas"
+brew "mole"
 brew "ncdu"
 brew "neovim"
-brew "syncthing"
+brew "node"
+brew "ruby"
+brew "felixkratz/formulae/sketchybar"
+brew "syncthing", restart_service: :changed
+brew "tailscale", restart_service: :changed
 brew "tmux"
+brew "tree"
 brew "uv"
+brew "yazi"
 brew "zoxide"
 brew "zsh-autosuggestions"
 brew "zsh-syntax-highlighting"
 
-# ── Casks ──
+# Casks
 cask "adobe-acrobat-pro"
-cask "aerospace"
+cask "nikitabobko/tap/aerospace"
 cask "antigravity"
 # cask "arc"
 # cask "betterdisplay"
 # cask "calibre"
-cask "chatgpt"
+# cask "chatgpt"
+cask "claude-code"
 cask "cyberduck"
-cask "discord"
+# cask "discord"
 cask "dropbox"
-cask "foxitreader"
+# cask "foxitreader"
 cask "freefilesync"
 cask "ghostty"
 cask "github"
@@ -44,10 +49,9 @@ cask "mactex"
 # cask "microsoft-edge"
 cask "microsoft-excel"
 cask "microsoft-outlook"
-cask "microsoft-powerpoint"
+# cask "microsoft-powerpoint"
 cask "microsoft-teams"
 cask "microsoft-word"
-cask "mole"
 cask "monitorcontrol"
 cask "moonlight"
 cask "obsidian"
@@ -58,8 +62,9 @@ cask "orbstack"
 cask "sketchybar"
 # cask "stats"
 cask "stirling-pdf"
-cask "sublime-text"
+# cask "sublime-text"
 # cask "texstudio"
+cask "typewhisper/tap/typewhisper"
 cask "uuremote"
 cask "visual-studio-code"
 cask "vlc"
@@ -74,6 +79,7 @@ cask "font-sketchybar-app-font"
 cask "sf-symbols"
 
 # ── Mac App Store Apps ──
-#mas "iWallpaper - Live Wallpaper", id: 1552826194
-# mas "pap.er 优雅壁纸", id:1639052102
 mas "Commander One", id: 1035236694
+# mas "iWallpaper - Live Wallpaper", id: 1552826194
+# mas "pap.er 优雅壁纸", id:1639052102
+mas "Xcode", id: 497799835

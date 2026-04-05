@@ -415,6 +415,10 @@ if.app-id = 'org.freefilesync.FreeFileSync'
 run = 'layout floating'
 
 [[on-window-detected]]
+if.app-id = 'org.kde.okular'
+run = 'move-node-to-workspace Books'
+
+[[on-window-detected]]
 if.app-id = 'com.mitchellh.ghostty'
 run = 'move-node-to-workspace T'
 

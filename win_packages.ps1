@@ -11,6 +11,7 @@ $packages = @(
     "Google.Chrome",
     "Guru3D.Afterburner",
     "JesseDuffield.lazygit",
+    "KDE.Okular",
     "Klocman.BulkCrapUninstaller",
     "Logitech.OptionsPlus",
     "Microsoft.AppInstaller",

@@ -18,6 +18,7 @@ FILES_TO_SYMLINK=(
   ".ghostty" "$HOME/Library/Application Support/com.mitchellh.ghostty/config"
   "karabiner.json" "$HOME/.config/karabiner/karabiner.json"
   "nvim" "$HOME/.config/nvim"
+  "okularpartrc" "$HOME/Library/Preferences/okularpartrc"
   "sketchybar" "$HOME/.config/sketchybar"
   ".zshrc" "$HOME/.zshrc"
 )

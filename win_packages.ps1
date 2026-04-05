@@ -37,4 +37,4 @@ foreach ($package in $packages) {
     winget install --id $package -e -s winget --accept-package-agreements --accept-source-agreements --silent
 }
 
-Write-Host "All packages processed!" -ForegroundColor Green
+Write-Host "All winget packages processed!" -ForegroundColor Green

@@ -21,6 +21,5 @@ winget install --id Git.Git -e -s winget --accept-source-agreements --accept-pac
 $env:Path = [System.Environment]::GetEnvironmentVariable("Path","Machine") + ";" + [System.Environment]::GetEnvironmentVariable("Path","User")
 
 git clone https://github.com/he-linyun/dotfiles.git $HOME/.dotfiles
-powershell -ExecutionPolicy Bypass -File "$HOME\.dotfiles\win_packages.ps1"
-powershell -ExecutionPolicy Bypass -File "$HOME\.dotfiles\win_dotfiles.ps1"
+powershell -ExecutionPolicy Bypass -File "$HOME\.dotfiles\win_bootstrap.ps1"
 ```
